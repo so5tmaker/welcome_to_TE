@@ -1,16 +1,20 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 
 // our redux state
-reduxState = {
-    isOnline: true,
-    userData: {
-        name: 'Peter',
-        surname: 'Pen'
-    }
-}
+const reduxState = {
+  isOnline: true,
+  userData: {
+    name: "Peter",
+    surname: "Pen",
+  },
+};
 
-const MainComponent = () => {
-    const userData = useSelector(reduxState => reduxState.userData); // subscribe and get only userData object
-
-    // ... other code
+export const MainComponent = () => {
+  const selectUserData = createSelector(
+    (state) => state.userData,
+    (data) => data
+  );
+  const userData = useSelector(selectUserData(reduxState)); // subscribe and get only userData object
+  // ... other code
 };

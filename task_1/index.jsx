@@ -1,15 +1,22 @@
-import { Component } from 'react';
+import { Component, PureComponent, memo } from "react";
 
 // functional component
-const FirstComponent = ({ name }) => (
-    <div>my name is {name}</div>
-);
+export const FirstComponent = memo(({ name }) => <div>my name is {name}</div>);
 
 // class component
-class SecondComponent extends Component {
-    render() {
-        return (
-            <div>my name is {this.props.name}</div>
-        )
-    }
+export class SecondComponent extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.name !== nextProps.name;
+  }
+
+  render() {
+    return <div>my name is {this.props.name}</div>;
+  }
 }
+
+// second solution
+// export class SecondComponent extends PureComponent {
+//   render() {
+//     return <div>my name is {this.props.name}</div>;
+//   }
+// }
